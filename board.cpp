@@ -1,49 +1,16 @@
 #include "board.h"
+#include "CPicturesStorage.h"
 
+#include "widgets/WgClock.h"
 
 Board::Board()
 {
 	cleanWidgets();
 	
-	float c = 5.4;
-	float a = 6/c;
-	float b = 10/a;
-	int e = 258;
-	
-	WgClock *buf;
-	buf = new WgClock(1280, 720, 2, 5, md1x3);
-	buf->setGrid(c,b);	
-	buf->setXY(e, 485);
-	addWidget(buf);
-	
-	WgCalendar *buf2;
-	buf2 = new WgCalendar(1280, 720, 1, 5, md1x3);
-	buf2->setGrid(c,b);	
-	buf2->setXY(e,202);
-	addWidget(buf2);
-	
-	WgWeather *buf3;
-	buf3 = new WgWeather(1280, 720, 3, 5, md1x1);
-	buf3->setGrid(c,b);	
-	buf3->setXY(e, 610);
-	addWidget(buf3);
-	
-	
-	
-	WgKpnference *buf4;
-	buf4 = new WgKpnference(1280, 720, 3, 5, md2x8);
-	buf4->update();
-	//buf4->setGrid(c,b);	
-	buf4->setXY(550, 618);
-	addWidget(buf4);
-
+	addWidget(new WgClock(1280, 720, 0, 10, md1x3));
 	
 	first = -1;
 	next = -1;
-	
-	
-	bckgrnd = new ScrBackground(1280, 720);
-	logo = new Picture("resources/logo.png");
 }
 
 Board::~Board() 
@@ -52,10 +19,6 @@ Board::~Board()
 	{
 		if(widgets[i]) delete widgets[i];
 	}
-	
-	
-	delete bckgrnd;
-	delete logo;
 }
 
 void Board::update()
@@ -71,11 +34,7 @@ void Board::render()
 {
 	// just drowing functions!!!
 	// p.s do not change name of function (drawClock, drawWeather ... name it just render();
-	
-
-	bckgrnd->render();
-	logo->render(20,560,0.6,0.6,0,0,0);
-	
+	PicStorage->ScreenBackgroud->render(0,0);
 	for(int i = 0; i < WIDGETS_COUNT; i++)
 	{
 		if(widgets[i])

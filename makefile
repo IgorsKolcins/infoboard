@@ -1,4 +1,4 @@
-TARGET = Engine.cpp main.cpp board.cpp ./lib/TFont/TFont.cpp ./lib/TFont/ftf.cpp ./lib/Picture.cpp ./lib/json.cpp ./widgets/ScrBackground.cpp ./widgets/WgBackground.cpp ./widgets/WgCalendar.cpp ./widgets/WgClock.cpp ./widgets/WgWeather.cpp ./widgets/WgKpnference.cpp
+TARGET = CPicturesStorage.cpp CFontStorage.cpp Engine.cpp main.cpp board.cpp ./lib/TFont/TFont.cpp ./lib/TFont/ftf.cpp ./lib/Picture.cpp ./lib/json.cpp ./widgets/WgBackground.cpp ./widgets/WgClock.cpp
 
 TARGETFAST = Engine.cpp main.cpp board.cpp ./widgets/ScrBackground.cpp ./widgets/WgBackground.cpp ./widgets/WgCalendar.cpp ./widgets/WgClock.cpp ./widgets/WgWeather.cpp ./widgets/WgKpnference.cpp
 

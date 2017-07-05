@@ -37,6 +37,7 @@ public:
     ~WgBackground();
     
     void setFillColor(wgColor c); //set color of block with command Fill
+    void setTextColor(wgColor c);
     
     void render();
     void update() {};

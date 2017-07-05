@@ -1,5 +1,6 @@
 #include "WgBackground.h"
 #include "../CPicturesStorage.h"
+#include "../CFontStorage.h"
 //#include "../lib/Picture.h"
 //#include "../lib/TFont/TFont.h"
 
@@ -37,6 +38,17 @@ WgBackground::WgBackground(int AscrWidth, int AscrHeight, int AposX, int AposY, 
 WgBackground::~WgBackground()
 {
 	
+}
+
+void WgBackground::setTextColor(wgColor c){
+	if (c==1) FontStorage->getFont((char*)"arialBold")->SetColour(0,121,194);
+	else if (c==2) FontStorage->getFont((char*)"arialBold")->SetColour(37,196,166);
+	else if (c==3) FontStorage->getFont((char*)"arialBold")->SetColour(139,209,93);
+	else if (c==5) FontStorage->getFont((char*)"arialBold")->SetColour(139,91,164);
+	else if (c==6) FontStorage->getFont((char*)"arialBold")->SetColour(201,208,34);
+	else if (c==7) FontStorage->getFont((char*)"arialBold")->SetColour(240,115,30);
+	else if (c==8) FontStorage->getFont((char*)"arialBold")->SetColour(183,46,145);
+	else if (c==9) FontStorage->getFont((char*)"arialBold")->SetColour(255,200,50);	
 }
 
 void WgBackground::setFillColor(wgColor c)

@@ -7,7 +7,7 @@ Board::Board()
 {
 	cleanWidgets();
 	
-	addWidget(new WgClock(1280, 720, 0, 10, md1x3));
+	addWidget(new WgClock(1280, 720, 2, 7, md1x3));
 	
 	first = -1;
 	next = -1;

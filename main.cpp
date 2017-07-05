@@ -1,1 +1,17 @@
-//Creating connect to git from linux 213.175.88.228
+#include "engine.h"
+
+
+int main()
+{
+	int width, height;
+	init(&width, &height);
+	
+	
+	Engine *engine = new Engine(width, height);
+
+	engine->start();
+	
+	delete engine;
+	
+	return 0;
+}

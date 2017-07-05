@@ -16,11 +16,11 @@ WgBackground::WgBackground(int AscrWidth, int AscrHeight, int AposX, int AposY, 
 	posX = AposX; // horizontal position in the grid
 	posY = AposY; // vertical position in the grid
 	mode = Amode;
-	color = clGreen;
+	color = 1+rand()%10;
 	
 	// -- create one grid step
-	gridStep.horizontal = scrWidth/6;
-	gridStep.vertical = scrHeight/10;
+	gridStep.horizontal = scrWidth/GRID_HORIZONTAL;
+	gridStep.vertical = scrHeight/GRID_VERTICAL;
 	
 	// -- convert position in the grid to coordinates
 	// -- -- it is top-left corner
@@ -41,14 +41,16 @@ WgBackground::~WgBackground()
 }
 
 void WgBackground::setTextColor(wgColor c){
-	if (c==1) FontStorage->getFont((char*)"arialBold")->SetColour(0,121,194);
-	else if (c==2) FontStorage->getFont((char*)"arialBold")->SetColour(37,196,166);
-	else if (c==3) FontStorage->getFont((char*)"arialBold")->SetColour(139,209,93);
-	else if (c==5) FontStorage->getFont((char*)"arialBold")->SetColour(139,91,164);
-	else if (c==6) FontStorage->getFont((char*)"arialBold")->SetColour(201,208,34);
-	else if (c==7) FontStorage->getFont((char*)"arialBold")->SetColour(240,115,30);
-	else if (c==8) FontStorage->getFont((char*)"arialBold")->SetColour(183,46,145);
-	else if (c==9) FontStorage->getFont((char*)"arialBold")->SetColour(255,200,50);	
+	if (c==clBlue) FontStorage->getFont((char*)"arialBold")->SetColour(0,121,194);
+	else if (c==clCyan) FontStorage->getFont((char*)"arialBold")->SetColour(37,196,166);
+	else if (c==clGreen) FontStorage->getFont((char*)"arialBold")->SetColour(139,209,93);
+	else if (c==clHighBlue) FontStorage->getFont((char*)"arialBold")->SetColour(0,185,241);
+	else if (c==clHighPurple) FontStorage->getFont((char*)"arialBold")->SetColour(139,91,164);
+	else if (c==clLazyYellow) FontStorage->getFont((char*)"arialBold")->SetColour(201,208,34);
+	else if (c==clOrange) FontStorage->getFont((char*)"arialBold")->SetColour(240,115,30);
+	else if (c==clPurple) FontStorage->getFont((char*)"arialBold")->SetColour(183,46,145);
+	else if (c==clYellow) FontStorage->getFont((char*)"arialBold")->SetColour(255,200,50);
+	else if (c==clHaki) FontStorage->getFont((char*)"arialBold")->SetColour(0, 85, 81);
 }
 
 void WgBackground::setFillColor(wgColor c)

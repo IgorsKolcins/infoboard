@@ -104,7 +104,7 @@ void WgClock::setSchedule(){
 		pi[i].breakend = jToTime(SCH["DEFAULT"][buf]["breakend"]);
 		pi[i].end = jToTime(SCH["DEFAULT"][buf]["end"]);
 	}
-	cout << "Set up schedule for clock widget, from defaultfdgzsf." << endl;
+	cout << "Set up schedule for clock widget, from default." << endl;
 	ExceptionNum = 0;
 	//cout << "after schedule" << pi[3].breakbegin.h << pi[3].breakbegin.m << endl;
 
@@ -216,10 +216,10 @@ void WgClock::renderMode1()
 }
 
 void WgClock::renderMode2(){
-	FontStorage->getFont((char*)"arialBold")->SetColour(0, 85, 81);
+	setTextColor(clHaki);
 	FontStorage->getFont((char*)"arialBold")->SetSize(gridStep.vertical/3);
 	FontStorage->getFont((char*)"arialBold")->TextMid(BUFPARA, x + (gridStep.horizontal/2),
-				  y - gridStep.vertical/3*2);
+				  y - gridStep.vertical/16*11);
 }
 
 void WgClock::renderMode3(){

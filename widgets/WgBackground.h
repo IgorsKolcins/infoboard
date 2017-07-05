@@ -1,4 +1,4 @@
-/* WgBackground
+/* WgBackground Author: Igors Kolcins
 *-- This is visual widget.
 *		This widget render only backgroud of widget with shadows
 *		and have empety update.
@@ -8,8 +8,11 @@
 
 #define UPDATE_TIME_SEK 5
 
+#define GRID_VERTICAL 10
+#define GRID_HORIZONTAL 6
 
-enum wgColor {clWhite, clBlue, clCyan, clGreen, clHighBlue, clHighPurple, clLazyYellow, clOrange, clPurple, clYellow};
+
+enum wgColor {clWhite, clBlue, clCyan, clGreen, clHighBlue, clHighPurple, clLazyYellow, clOrange, clPurple, clYellow, clHaki};
 enum wgMode {md1x1 = 1, md1x2, md1x3};
 
 struct scrGrid {
@@ -37,7 +40,8 @@ public:
     ~WgBackground();
     
     void setFillColor(wgColor c); //set color of block with command Fill
-    void setTextColor(wgColor c);
+    
+    void setTextColor(wgColor c); //set color of text
     
     void render();
     void update() {};

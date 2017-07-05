@@ -1,4 +1,4 @@
-/*WgClock
+/*WgClock Author: Igors Kolcins
 *-- This is visual widget.
 *		His only update time and render it.
 *		Background render parent class WgBackground

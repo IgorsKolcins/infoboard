@@ -103,6 +103,7 @@ void Engine::render()
 {
 	Start(width, height);
 	Background(0, 0, 0);
+
 	//////////////////////////////////////////////////////
 	/*			RENDER PICS HERE						*/
 	

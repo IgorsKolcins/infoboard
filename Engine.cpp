@@ -92,7 +92,6 @@ void Engine::update()
 		{
 			if(maxUpdateTime < w->getUpdateTime()) maxUpdateTime = w->getUpdateTime();
 		}
-		else updateTime = 0.0;
 	}
 	if(updateTime >= maxUpdateTime) updateTime = 0.0;
 	

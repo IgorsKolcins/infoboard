@@ -4,7 +4,7 @@
 WgClock::WgClock(int AscrWidth, int AscrHeight, int Ax, int Ay, wgMode Amode):
 	WgBackground(AscrWidth, AscrHeight, Ax, Ay, Amode) 
 {
-	updateTime = 0.25;
+	updateTime = 0.20;
 	readFile(SCH);
 	setDateTime();
 	setSchedule();
@@ -205,9 +205,6 @@ void WgClock::update(){
 
 void WgClock::renderMode1()
 {
-	//WgBackground::render(); // render backgroud of widget
-		
-	
 	FontStorage->getFont((char*)"arialBold")->SetColour(255,255,255);
 	FontStorage->getFont((char*)"arialBold")->SetSize(gridStep.vertical/1.5);
 	FontStorage->getFont((char*)"arialBold")->TextMid(BUFTIME, x + (gridStep.horizontal/2),

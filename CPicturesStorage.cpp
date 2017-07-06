@@ -17,7 +17,7 @@ CPicturesStorage::~CPicturesStorage(){
 }
 
 void CPicturesStorage::addPic(){
-	
+	Logo = new Picture("resources/logo.png");
 	ScreenBackgroud = new Picture("resources/Background.jpg");
 	WgShadows = new wgShadowPictures;
 	WgShadows->t = new Picture("resources/shadows/sTop.png");

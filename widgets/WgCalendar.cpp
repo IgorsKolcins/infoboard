@@ -70,7 +70,6 @@ void WgCalendar::updateMode3()
 
 void WgCalendar::update()
 {
-	cout << "update calendar" << endl;
 	lt = time(NULL);
 	ptr = localtime(&lt);
 	

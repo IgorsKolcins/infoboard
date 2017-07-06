@@ -9,7 +9,7 @@ Board::Board()
 {
 	cleanWidgets();
 
-	addWidget(new WgForecast(1280, 720, 2, 7, md1x3));
+	addWidget(new WgForecast(1280, 720, 2, 7, md1x1));
 	addWidget(new WgClock(1280, 720, 3, 7, md1x3));
 	addWidget(new WgCalendar(1280, 720, 4, 7, md1x3));
 	
@@ -39,7 +39,8 @@ void Board::render()
 	// just drowing functions!!!
 	// p.s do not change name of function (drawClock, drawWeather ... name it just render();
 	PicStorage->ScreenBackgroud->render(0,0);
-
+	PicStorage->Logo->render(20,560,0.6,0.6,0,0,0);
+	
 	for(int i = 0; i < WIDGETS_COUNT; i++)
 	{
 		if(widgets[i])

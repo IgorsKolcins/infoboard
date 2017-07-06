@@ -32,6 +32,7 @@ public:
     
     //TFont *arialBold;
     Picture *ScreenBackgroud;
+    Picture *Logo;
 	wgShadowPictures *WgShadows;
 };
 

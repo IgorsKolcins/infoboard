@@ -16,7 +16,7 @@ WgForecast::~WgForecast()
 	
 }
 
-size_t WgForecast::WriteCallback(void *contents, size_t size, size_t nmemb, void *userp)
+size_t WgForecast::WriteCallback(void *contents, size_t size, size_t nmemb, void *userp) //???
 {
     ((std::string*)userp)->append((char*)contents, size * nmemb); // ???
     return size * nmemb; // ???
@@ -60,7 +60,7 @@ void WgForecast::getWeatherFromWeb(char site[])
 		//задаем все необходимые опции	
 		curl_easy_setopt(curl, CURLOPT_ERRORBUFFER, errorBuffer); //определяем, куда выводить ошибки
 		
-		curl_easy_setopt(curl, CURLOPT_URL, "http://api.openweathermap.org/data/2.5/weather?q=Daugavpils&units=metric&appid=a0a20199a69ae584fd1303a3152d92bc"); //задаем опцию - получить страницу по адресу site
+		curl_easy_setopt(curl, CURLOPT_URL, site); //задаем опцию - получить страницу по адресу site
 		
 		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback); //указываем функцию обратного вызова для записи получаемых данных
 		
@@ -79,12 +79,17 @@ void WgForecast::getWeatherFromWeb(char site[])
 	}
 	
 	curl_easy_cleanup(curl); //выполняем обязательное завершение сессии
-}	
+	
+	auto buf = json::parse(readBuffer);
+	weatherData = buf;
+}
 
 
 void WgForecast::updateMode1()
 {
-	//getWeatherFromWeb("");
+	getWeatherFromWeb((char*)"http://api.openweathermap.org/data/2.5/weather?q=Daugavpils&units=metric&appid=a0a20199a69ae584fd1303a3152d92bc");
+	int buf = weatherData["main"]["temp"];
+	sprintf(bufTemp, "+%d°", buf);
 }
 
 void WgForecast::updateMode2()
@@ -97,7 +102,6 @@ void WgForecast::updateMode3()
 
 void WgForecast::update()
 {
-	cout << "update forecast" << endl;
 	switch (mode){
 		case md1x1:{ updateMode1(); break; }
 		case md1x2:{ updateMode1(); updateMode2(); break; }
@@ -107,10 +111,10 @@ void WgForecast::update()
 
 void WgForecast::renderMode1()
 {
-	/*FontStorage->getFont((char*)"arialBold")->SetColour(255,255,255);
+	FontStorage->getFont((char*)"arialBold")->SetColour(255,255,255);
 	FontStorage->getFont((char*)"arialBold")->SetSize(gridStep.vertical/1.5);
-	FontStorage->getFont((char*)"arialBold")->TextMid(bufDate, x + (gridStep.horizontal/2),
-		y + (gridStep.vertical/1.5/4));*/
+	FontStorage->getFont((char*)"arialBold")->TextMid(bufTemp, x + (gridStep.horizontal/2),
+		y + (gridStep.vertical/1.5/4));
 }
 
 void WgForecast::renderMode2()

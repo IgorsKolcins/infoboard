@@ -18,6 +18,8 @@ WgBackground::WgBackground(int AscrWidth, int AscrHeight, int AposX, int AposY, 
 	mode = Amode;
 	color = 1+rand()%10;
 	
+	isShadows = true; // shadows on
+	
 	// -- create one grid step
 	gridStep.horizontal = scrWidth/GRID_HORIZONTAL;
 	gridStep.vertical = scrHeight/GRID_VERTICAL;
@@ -32,6 +34,7 @@ WgBackground::WgBackground(int AscrWidth, int AscrHeight, int AposX, int AposY, 
 		case md1x1: {sizeX = 1; sizeY = 1; break;}
 		case md1x2: {sizeX = 1; sizeY = 2; break;}
 		case md1x3: {sizeX = 1; sizeY = 3; break;}
+		case md2x8: {break;}
 	}
 }
 
@@ -80,28 +83,29 @@ void WgBackground::render()
 				 gridStep.horizontal, gridStep.vertical);
 		}
 	}
-	
-	// -- render widget shadows
-	int w = gridStep.horizontal * sizeX; //get width in px of widget block
-	int h = gridStep.vertical *sizeY; //get height in px of widget block
-	int Y = y - gridStep.vertical*(sizeY-1); //get Y coordinates of bottom-left corner (y,x - top-left corner)
-	
-	// -- -- render corners
-	PicStorage->WgShadows->lt->render(x-9, Y+h);
-	PicStorage->WgShadows->rt->render(x+w, Y+h);
-	PicStorage->WgShadows->lb->render(x-9, Y-9);
-	PicStorage->WgShadows->rb->render(x+w, Y-9);
-	
-	// -- -- render top and bot
-	for (int i=0; i<w; i++){
-		PicStorage->WgShadows->t->render(x+i, Y+h);
-		PicStorage->WgShadows->b->render(x+i, Y-9);
+	if (isShadows)
+	{
+		// -- render widget shadows
+		int w = gridStep.horizontal * sizeX; //get width in px of widget block
+		int h = gridStep.vertical *sizeY; //get height in px of widget block
+		int Y = y - gridStep.vertical*(sizeY-1); //get Y coordinates of bottom-left corner (y,x - top-left corner)
+		
+		// -- -- render corners
+		PicStorage->WgShadows->lt->render(x-9, Y+h);
+		PicStorage->WgShadows->rt->render(x+w, Y+h);
+		PicStorage->WgShadows->lb->render(x-9, Y-9);
+		PicStorage->WgShadows->rb->render(x+w, Y-9);
+		
+		// -- -- render top and bot
+		for (int i=0; i<w; i++){
+			PicStorage->WgShadows->t->render(x+i, Y+h);
+			PicStorage->WgShadows->b->render(x+i, Y-9);
+		}
+		
+		// -- -- render left and right
+		for (int i=0; i<h; i++){
+			PicStorage->WgShadows->l->render(x-9, Y+i);
+			PicStorage->WgShadows->r->render(x+w, Y+i);
+		}
 	}
-	
-	// -- -- render left and right
-	for (int i=0; i<h; i++){
-		PicStorage->WgShadows->l->render(x-9, Y+i);
-		PicStorage->WgShadows->r->render(x+w, Y+i);
-	}
-	
 }

@@ -4,15 +4,16 @@
 #include "widgets/WgClock.h"
 #include "widgets/WgCalendar.h"
 #include "widgets/WgForecast.h"
+#include "widgets/WgAds.h"
 
 Board::Board()
 {
 	cleanWidgets();
 
-
-	addWidget(new WgForecast(1280, 720, 1, 5, md1x3));
-	addWidget(new WgClock(1280, 720, 2, 5, md1x3));
-	addWidget(new WgCalendar(1280, 720, 3, 5, md1x3));
+	addWidget(new WgAds(1280, 720, 1, 8, md2x8));
+	addWidget(new WgForecast(1280, 720, 4, 8, md1x2));
+	addWidget(new WgClock(1280, 720, 4, 6, md1x3));
+	addWidget(new WgCalendar(1280, 720, 4, 3, md1x3));
 	
 	first = -1;
 	next = -1;

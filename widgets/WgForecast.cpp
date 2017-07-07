@@ -96,7 +96,7 @@ void WgForecast::updateMode1()
 	if (isConnection)
 	{
 		int bufTemp = weatherData["main"]["temp"];
-		sprintf(temp, "+%d ", bufTemp);
+		sprintf(temp, "+%d", bufTemp); //°
 	}
 	else
 		sprintf(temp, "err");
@@ -106,6 +106,17 @@ void WgForecast::updateMode2()
 {
 	if (isConnection)
 	{
+		windDegree = weatherData["wind"]["deg"];
+		float bufSpeed = weatherData["wind"]["speed"];
+		sprintf(windSpeed, "%4.2f m/s", bufSpeed);
+	}
+	else
+	{
+		sprintf(windSpeed, "err");
+		windDegree = 0;
+	}
+	/*if (isConnection)
+	{
 		//string weatherBuf = weatherData["weather"]["description"][1];
 		//sprintf(weatherInfo, "%s", bufInfo.c_str());
 		//weatherInfo = new char[bufInfo.length()+1];
@@ -113,7 +124,7 @@ void WgForecast::updateMode2()
 		//weatherInfo = new char[bufInfo.length()+1];
 	}
 	else
-		sprintf(weatherInfo, "err");
+		sprintf(weatherInfo, "err");*/
 }
 
 void WgForecast::updateMode3()
@@ -151,9 +162,16 @@ void WgForecast::renderMode1()
 void WgForecast::renderMode2()
 {
 	setTextColor(clHaki);
+	//setTextColor(color);
+	FontStorage->getFont((char*)"arialBold")->SetSize(gridStep.vertical/2.8);
+	FontStorage->getFont((char*)"arialBold")->TextMid(windSpeed, x + (gridStep.horizontal/2.5),
+				  y - gridStep.vertical/16*11);
+	PicStorage->Arrow->render(x + (gridStep.horizontal/1.3), y - gridStep.vertical/1.4, 1, 1, 0,0,-windDegree);
+
+	/*setTextColor(clHaki);
 	FontStorage->getFont((char*)"arialBold")->SetSize(gridStep.vertical/3);
 	FontStorage->getFont((char*)"arialBold")->TextMid("apraksts", x + (gridStep.horizontal/2),
-				  y - gridStep.vertical/16*11);
+				  y - gridStep.vertical/16*11);*/
 }
 
 void WgForecast::renderMode3()

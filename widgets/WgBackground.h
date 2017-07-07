@@ -8,8 +8,8 @@
 
 #define UPDATE_TIME_SEK 5
 
-#define GRID_VERTICAL 10
-#define GRID_HORIZONTAL 6
+#define GRID_VERTICAL 8.3333
+#define GRID_HORIZONTAL 5
 
 
 enum wgColor {clWhite, clBlue, clCyan, clGreen, clHighBlue, clHighPurple, clLazyYellow, clOrange, clPurple, clYellow, clHaki};

@@ -1,8 +1,7 @@
 #include "WgForecast.h"
+#include "../CPicturesStorage.h"
 #include "../CFontStorage.h"
-#include "iostream"
 
-using namespace std;
 
 WgForecast::WgForecast(int AscrWidth, int AscrHeight, int Ax, int Ay, wgMode Amode):
 	WgBackground(AscrWidth, AscrHeight, Ax, Ay, Amode) 
@@ -13,7 +12,6 @@ WgForecast::WgForecast(int AscrWidth, int AscrHeight, int Ax, int Ay, wgMode Amo
 
 WgForecast::~WgForecast()
 {
-	
 }
 
 size_t WgForecast::WriteCallback(void *contents, size_t size, size_t nmemb, void *userp) //???
@@ -68,36 +66,69 @@ void WgForecast::getWeatherFromWeb(char site[])
 		
 		res = curl_easy_perform(curl); //запускаем выполнение задачи
 				
-		#ifdef ONDEBUG
-			if (res == CURLE_OK)      
-				//выводим полученные данные на стандартный вывод (консоль)
-				cout << readBuffer << endl;              
-			else      
+		
+			if (res == CURLE_OK)
+			{
+				auto buf = json::parse(readBuffer);
+				weatherData = buf;
+				#ifdef ONDEBUG
+					cout << readBuffer << endl;
+				#endif              
+			}
+			else  
+			{    
+				isConnection = false;
 				//выводим сообщение об ошибке
 				cout << "Error! " << errorBuffer << endl;
-		#endif
+			}
+		
 	}
 	
 	curl_easy_cleanup(curl); //выполняем обязательное завершение сессии
 	
-	auto buf = json::parse(readBuffer);
-	weatherData = buf;
+	
 }
 
 
 void WgForecast::updateMode1()
 {
 	getWeatherFromWeb((char*)"http://api.openweathermap.org/data/2.5/weather?q=Daugavpils&units=metric&appid=a0a20199a69ae584fd1303a3152d92bc");
-	int buf = weatherData["main"]["temp"];
-	sprintf(bufTemp, "+%d°", buf);
+	if (isConnection)
+	{
+		int bufTemp = weatherData["main"]["temp"];
+		sprintf(temp, "+%d ", bufTemp);
+	}
+	else
+		sprintf(temp, "err");
 }
 
 void WgForecast::updateMode2()
 {
+	if (isConnection)
+	{
+		//string weatherBuf = weatherData["weather"]["description"][1];
+		//sprintf(weatherInfo, "%s", bufInfo.c_str());
+		//weatherInfo = new char[bufInfo.length()+1];
+		//strcpy(weatherInfo, bufInfo.c_str());
+		//weatherInfo = new char[bufInfo.length()+1];
+	}
+	else
+		sprintf(weatherInfo, "err");
 }
 
 void WgForecast::updateMode3()
 {
+	if (isConnection)
+	{
+		windDegree = weatherData["wind"]["deg"];
+		float bufSpeed = weatherData["wind"]["speed"];
+		sprintf(windSpeed, "%4.2f m/s", bufSpeed);
+	}
+	else
+	{
+		sprintf(windSpeed, "err");
+		windDegree = 0;
+	}
 }
 
 void WgForecast::update()
@@ -113,26 +144,41 @@ void WgForecast::renderMode1()
 {
 	FontStorage->getFont((char*)"arialBold")->SetColour(255,255,255);
 	FontStorage->getFont((char*)"arialBold")->SetSize(gridStep.vertical/1.5);
-	FontStorage->getFont((char*)"arialBold")->TextMid(bufTemp, x + (gridStep.horizontal/2),
+	FontStorage->getFont((char*)"arialBold")->TextMid(temp, x + (gridStep.horizontal/2),
 		y + (gridStep.vertical/1.5/4));
 }
 
 void WgForecast::renderMode2()
 {
+	setTextColor(clHaki);
+	FontStorage->getFont((char*)"arialBold")->SetSize(gridStep.vertical/3);
+	FontStorage->getFont((char*)"arialBold")->TextMid("apraksts", x + (gridStep.horizontal/2),
+				  y - gridStep.vertical/16*11);
 }
 
 void WgForecast::renderMode3()
 {
+	FontStorage->getFont((char*)"arialBold")->SetSize(gridStep.vertical/5);
+	FontStorage->getFont((char*)"arialBold")->TextMid("Veišs:", x + (gridStep.horizontal/2),
+				 y - gridStep.vertical - (gridStep.vertical/5/2));
+	setTextColor(color);
+	FontStorage->getFont((char*)"arialBold")->SetSize(gridStep.vertical/2.8);
+	FontStorage->getFont((char*)"arialBold")->TextMid(windSpeed, x + (gridStep.horizontal/2.5),
+				  y - gridStep.vertical - gridStep.vertical/16*11);
+	PicStorage->Arrow->render(x + (gridStep.horizontal/1.3), y - gridStep.vertical - gridStep.vertical/1.4, 1, 1, 0,0,-windDegree);
 }
 
 void WgForecast::render()
 {
-	WgBackground::render();
-	
-	switch (mode){
-		case md1x1:{ renderMode1(); break; }
-		case md1x2:{ renderMode1(); renderMode2(); break; }
-		case md1x3:{ renderMode1(); renderMode2(); renderMode3(); break; }
+	if (isConnection)
+	{
+		WgBackground::render();
+		
+		switch (mode){
+			case md1x1:{ renderMode1(); break; }
+			case md1x2:{ renderMode1(); renderMode2(); break; }
+			case md1x3:{ renderMode1(); renderMode2(); renderMode3(); break; }
+		}
 	}
 }
 

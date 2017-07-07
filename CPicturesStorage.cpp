@@ -19,6 +19,7 @@ CPicturesStorage::~CPicturesStorage(){
 void CPicturesStorage::addPic(){
 	Logo = new Picture("resources/logo.png");
 	ScreenBackgroud = new Picture("resources/Background.jpg");
+	Arrow = new Picture("resources/arrow.png");
 	WgShadows = new wgShadowPictures;
 	WgShadows->t = new Picture("resources/shadows/sTop.png");
 	WgShadows->lt = new Picture("resources/shadows/sLeftTop.png");
@@ -42,6 +43,8 @@ void CPicturesStorage::cleanStorage(){
 	delete WgShadows->lb;
 	delete WgShadows->rt;
 	delete WgShadows;
+	delete Logo;
+	delete Arrow;
 }
 
 

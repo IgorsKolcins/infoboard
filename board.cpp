@@ -9,9 +9,10 @@ Board::Board()
 {
 	cleanWidgets();
 
-	addWidget(new WgForecast(1280, 720, 2, 7, md1x1));
-	addWidget(new WgClock(1280, 720, 3, 7, md1x3));
-	addWidget(new WgCalendar(1280, 720, 4, 7, md1x3));
+
+	addWidget(new WgForecast(1280, 720, 1, 5, md1x3));
+	addWidget(new WgClock(1280, 720, 2, 5, md1x3));
+	addWidget(new WgCalendar(1280, 720, 3, 5, md1x3));
 	
 	first = -1;
 	next = -1;

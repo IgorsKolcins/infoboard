@@ -1,5 +1,8 @@
 #include "WgAds.h"
 
+#include <cstring>
+#include <dirent.h>
+
 #include "../CPicturesStorage.h" //use pictures PicStorage->...
 #include "../CFontStorage.h" //use text FontStorage->getFont((char*)"arialBold")->..
 
@@ -19,7 +22,30 @@ WgAds::~WgAds()
 
 void WgAds::update()
 {
-	sprintf(ads, "default");
+	struct dirent **namelist;
+	int n;
+	
+	n = scandir("./widgets/text/", &namelist, NULL, alphasort);
+	if (n < 0) perror("scandir");
+	else
+		while(n--)
+		{
+			if(strcmp(namelist[n]->d_name, "flag") == 0)
+			{
+				FILE *file = fopen("./widgets/text/text.txt", "rt");
+				
+				fseek(file, 0, SEEK_END);
+				int size = ftell(file);
+				
+				fclose(file);
+				
+				file = fopen("./widgets/text/text.txt", "rb");
+				fread(ads, 1, size, file);
+				
+				fclose(file);
+				system("rm -rf ./widgets/text/flag");
+			}
+		}
 }
 
 void WgAds::render()

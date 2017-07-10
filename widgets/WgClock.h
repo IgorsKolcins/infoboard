@@ -48,7 +48,7 @@ private:
 	int YEAR, DAY, HOUR, MIN, SEC;
 	char MOUNTH[100], WEEK[100];
 
-    	char BUFTIME[10], BUFPARA[10], BUFTIMER[10], BUFINFO[100], BUFINFO2[100];
+    	char BUFTIME[10], BUFPARA[15], BUFTIMER[10], BUFINFO[100], BUFINFO2[100];
 	int ExceptionNum;
 	int ParaValue;
 	TIME NextParaInfo; //NextParaInfo.h = 0; NextParaInfo.m = 0;

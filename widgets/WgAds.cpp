@@ -106,7 +106,7 @@ void WgAds::render()
 	
 	FontStorage->getFont((char*)"arialBold")->SetColour(255,255,255);
 	FontStorage->getFont((char*)"arialBold")->SetSize(gridStep.vertical/1.5);
-	FontStorage->getFont((char*)"arialBold")->TextMid("Sludinajumi", x + (gridStep.horizontal*1.5),
+	FontStorage->getFont((char*)"arialBold")->TextMid("Sludinājums", x + (gridStep.horizontal*1.5),
 		y + (gridStep.vertical/1.5/4));
 		
 	

@@ -132,7 +132,7 @@ bool WgClock::needUpdateSchedule(){
 void WgClock::setParaInfo(){
 	for (int i=0; i<ParaValue; i++){
 		if ( (HOUR == pi[i].end.h && MIN < pi[i].end.m) || HOUR < pi[i].end.h) {
-			sprintf(BUFPARA, "%c. pāra", 49+i); 
+			sprintf(BUFPARA, "%c. lekcija", 49+i);
 			ParaNow = i+1;
 			NextParaInfo = pi[i].end;
 			return;

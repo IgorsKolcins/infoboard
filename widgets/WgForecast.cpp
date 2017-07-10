@@ -93,7 +93,7 @@ void WgForecast::getWeatherFromWeb(char site[])
 void WgForecast::updateMode1()
 {
 	getWeatherFromWeb((char*)"http://api.openweathermap.org/data/2.5/weather?q=Daugavpils&units=metric&appid=a0a20199a69ae584fd1303a3152d92bc");
-	if (isConnection)
+	if (isConnection && weatherData["main"]["temp"].is_number())
 	{
 		int bufTemp = weatherData["main"]["temp"];
 		sprintf(temp, "+%d", bufTemp); //°
@@ -104,7 +104,7 @@ void WgForecast::updateMode1()
 
 void WgForecast::updateMode2()
 {
-	if (isConnection)
+	if (isConnection && weatherData["wind"]["deg"].is_number())
 	{
 		windDegree = weatherData["wind"]["deg"];
 		float bufSpeed = weatherData["wind"]["speed"];
@@ -129,7 +129,7 @@ void WgForecast::updateMode2()
 
 void WgForecast::updateMode3()
 {
-	if (isConnection)
+	if (isConnection && weatherData["wind"]["deg"].is_number())
 	{
 		windDegree = weatherData["wind"]["deg"];
 		float bufSpeed = weatherData["wind"]["speed"];
